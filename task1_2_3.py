@@ -179,7 +179,11 @@ for node in metro_graph.nodes():
     all_shortest_paths[node] = dijkstra(metro_graph, node)
 
 #  результати
+    
+"""
 for node in metro_graph.nodes():
     print(f"Найкоротші шляхи з вершини {node}:")
     for target_node, distance in all_shortest_paths[node].items():
         print(f"До вершини {target_node}: відстань {distance}")
+
+"""
