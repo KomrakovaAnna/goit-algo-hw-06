@@ -108,19 +108,23 @@ print("Вершина з найбільшим ступенем:", max_degree_nod
 
 #ЗАВДАННЯ 2 : BFS&DFS
 
-def dfs_paths(graph, start, end, path=[]):
-    path = path + [start]
-    if start == end:
-        return [path]
-    if start not in graph:
-        return []
-    paths = []
-    for node in graph[start]:
-        if node not in path:
-            new_paths = dfs_paths(graph, node, end, path)
-            for new_path in new_paths:
-                paths.append(new_path)
-    return paths
+def dfs_path(graph, vertex, end_vertex, visited=None, path=None):
+    if visited is None:
+        visited = set()
+    if path is None:
+        path = []
+    
+    visited.add(vertex)
+    path.append(vertex)
+
+    if vertex == end_vertex:
+        return path
+
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            new_path = dfs_path(graph, neighbor, end_vertex, visited, path.copy())
+            if new_path:
+                return new_path
 
 def bfs_paths(graph, start, end):
     queue = [(start, [start])]
@@ -135,7 +139,7 @@ def bfs_paths(graph, start, end):
 
 start_station = "Університет"
 end_station = "Поштова Площа"
-dfs_path = next(iter(dfs_paths(metro_graph, start_station, end_station)), None)
+dfs_path = dfs_path(metro_graph, start_station, end_station)
 print("Шлях за допомогою DFS:", dfs_path)
 
 # Знайдемо шляхи за допомогою BFS
